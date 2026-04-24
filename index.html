@@ -26,9 +26,12 @@
             var horizontalPadding = 20;
             var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
             var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            if (window.visualViewport && window.visualViewport.height) {
+                viewportHeight = window.visualViewport.height;
+            }
             var scale = Math.min(
                 (viewportWidth - horizontalPadding) / baseWidth,
-                (viewportHeight - horizontalPadding) / baseHeight,
+                (viewportHeight - 24) / baseHeight,
                 1
             );
 
@@ -157,6 +160,12 @@
             }
         }
 
+        function startAnimation() {
+            hold = 0;
+            canvas.off("click touchstart mousemove touchmove");
+            canvas.removeClass('hand');
+        }
+
         canvas.on("click", function(e) {
             playAudio();
             tryStartAtPoint(getCanvasPoint(e));
@@ -168,8 +177,8 @@
                 return;
             }
             playAudio();
-            var touch = e.originalEvent.touches[0];
-            tryStartAtPoint(getCanvasPoint(touch));
+            // On phones, allow first tap anywhere to continue.
+            startAnimation();
         }).on("touchmove", function(e) {
             if (!e.originalEvent.touches.length) {
                 return;

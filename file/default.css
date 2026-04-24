@@ -16,6 +16,7 @@ a {
   width: 100%;
   padding: 12px 0;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 #wrap {
   position: relative;
@@ -24,6 +25,7 @@ a {
   height: 680px;
   margin-top: 0;
   will-change: transform;
+  touch-action: manipulation;
 }
 #text {
   width: 272px;
@@ -85,4 +87,31 @@ a {
   font-size: 25px;
   font-family: monospace;
 
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  #main {
+    padding-top: max(10px, env(safe-area-inset-top));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  #code {
+    line-height: 1.45;
+  }
+
+  #clock-box {
+    font-size: 22px;
+  }
+
+  #clock-box a {
+    font-size: 22px;
+  }
+
+  #clock .digit {
+    font-size: 42px;
+  }
 }
